@@ -17,23 +17,6 @@ app.use('/note' , expressJWT({
 
 
 let theDb = undefined;
-// app.post('/note', (req , res) => {
-//     const note = { text } = req.body
-//     mongodb.connect('mongodb://localhost:27017/OnlineNote', { useNewUrlParser: true } , (err , client) => {
-//         if(err) {
-//             res.send(err);
-//             return;
-//         }
-//         theDb = client.db();
-//         theDb.collection('note').insertOne(note, (err , result) => {
-//             if(err){
-//                 res.send(err);
-//                 return;
-//             }
-//             res.send(note);
-//         })
-//     })
-// })
 
 app.post('/note', (req , res) => {
     const note = { text } = req.body;
@@ -145,7 +128,6 @@ app.post('/user/register', (req, res) => {
                                 theDb.collection('user').insertOne( credentials , ( err , result ) => {
                                     if(err) res.send({msg: `${err}`, token: ''});
                                     else {
-                                        // res.send(token)
                                         res.send({msg: 'done', token: token})
                                     }
                                 })
