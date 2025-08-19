@@ -20,14 +20,25 @@ app.use('/note' , expressJWT(jwtConfig))
 
 
 const uri = 'mongodb://localhost:27017';
-const client = new MongoClient(uri);
+let client;
+let database;
+
+async function connectToDatabase() {
+    try{
+        client = new MongoClient(uri);
+        await client.connect();
+        database = client.db('OnlineNote')
+    }catch(err){
+        res.send(err);
+    }
+}
+
+connectToDatabase();
 
 app.post('/note', async (req, res) => {
     try{
         const note = {text} = req.body;
         note.username = req.auth.username;
-        await client.connect();
-        const database = client.db('OnlineNote');
         const collection = database.collection('note');
         
         await collection.insertOne(note);
@@ -39,8 +50,6 @@ app.post('/note', async (req, res) => {
 
 app.get('/note', async (req, res) => {
     try{
-        await client.connect();
-        const database = client.db('OnlineNote');
         const collection = database.collection('note');
         const data = await collection.find({'username': req.auth.username}).toArray();
         res.send(data);
@@ -53,8 +62,6 @@ app.put('/note', async (req, res) => {
     try{
         const note = { _id , text } = req.body;
         const objId = new ObjectId(note._id)
-        await client.connect();
-        const database = client.db('OnlineNote');
         const collection = database.collection('note');
         const data = await collection.find({'_id': objId}).toArray();
         if(data[0].username !== req.auth.username){
@@ -74,8 +81,6 @@ app.delete('/note/:id', async (req, res) => {
     try{
         const deleteId = req.params.id;
         const objId = new ObjectId(deleteId);
-        await client.connect();
-        const database = client.db('OnlineNote');
         const collection = database.collection('note');
         const data = await collection.find({'_id': objId}).toArray()
         if (data[0].username !== req.auth.username) {
@@ -93,8 +98,6 @@ app.post('/user/register', async (req, res) => {
     try{
         let credentials = { username , password } = req.body;
         credentials.username = credentials.username.toLowerCase();
-        await client.connect();
-        const database = client.db('OnlineNote');
         const collection = database.collection('user');
         const user = await collection.find({'username': credentials.username}).toArray()
         if(user[0]) {
@@ -118,8 +121,6 @@ app.post('/user/register', async (req, res) => {
 app.post('/user/login', async (req, res) => {
     try{
         const credentials = { username , password } = req.body;
-        await client.connect();
-        const database = client.db('OnlineNote');
         const collection = database.collection('user');
         const user = await collection.find({'username': credentials.username}).toArray()
         if(!user[0]) {
