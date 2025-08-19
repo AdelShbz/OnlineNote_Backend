@@ -19,15 +19,24 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/note' , expressJWT(jwtConfig))
 
 
-const uri = 'mongodb://localhost:27017';
+// const uri = 'mongodb://localhost:27017/OnlineNote';
+const uri = 'db server uri';
 let client;
 let database;
 
 async function connectToDatabase() {
     try{
-        client = new MongoClient(uri);
+        client = new MongoClient(uri, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            serverApi: {
+                version: '1',
+                strict: true,
+                deprecationErrors: true
+            }
+        });
         await client.connect();
-        database = client.db('OnlineNote')
+        database = client.db()
     }catch(err){
         res.send(err);
     }
