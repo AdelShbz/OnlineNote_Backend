@@ -20,7 +20,7 @@ app.use('/note' , expressJWT(jwtConfig))
 
 
 // const uri = 'mongodb://localhost:27017/OnlineNote';
-const uri = 'db server uri';
+const uri = '';
 let client;
 let database;
 
