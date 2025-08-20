@@ -45,6 +45,10 @@ async function connectToDatabase() {
 
 connectToDatabase();
 
+app.get('/', (req, res) => {
+    res.send('it worked...');
+});
+
 app.post('/note', async (req, res) => {
     try{
         const note = {text} = req.body;
