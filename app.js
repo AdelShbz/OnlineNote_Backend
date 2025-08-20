@@ -4,10 +4,11 @@ const { MongoClient, ObjectId } = require('mongodb');
 const bcrypt = require('bcryptjs');
 const { expressjwt: expressJWT } = require('express-jwt');
 const jwt = require('jsonwebtoken');
-
+const dotenv = require('dotenv');
+dotenv.config({ quiet: true });
 
 const app = express();
-const secretKey = 'ABSDFE!@#$%%$#@!1234'
+const secretKey = process.env.SECRET_KEY
 const jwtConfig = {
     secret: secretKey,
     algorithms: ['HS256'],
@@ -20,7 +21,7 @@ app.use('/note' , expressJWT(jwtConfig))
 
 
 // const uri = 'mongodb://localhost:27017/OnlineNote';
-const uri = '';
+const uri = process.env.URI;
 let client;
 let database;
 
@@ -154,9 +155,9 @@ app.post('/user/login', async (req, res) => {
     }
 })
 
-
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
+const port = process.env.PORT;
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
 });
 
 
