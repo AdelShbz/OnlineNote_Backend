@@ -53,7 +53,7 @@ app.get('/.netlify/functions/app', (req, res) => {
     res.send('it worked...');
 });
 
-app.post('/note', async (req, res) => {
+app.post('/.netlify/functions/app/note', async (req, res) => {
     try{
         const note = {text} = req.body;
         note.username = req.auth.username;
@@ -66,7 +66,7 @@ app.post('/note', async (req, res) => {
     }
 })
 
-app.get('/note', async (req, res) => {
+app.get('/.netlify/functions/app/note', async (req, res) => {
     try{
         const collection = database.collection('note');
         const data = await collection.find({'username': req.auth.username}).toArray();
@@ -76,7 +76,7 @@ app.get('/note', async (req, res) => {
     }
 })
 
-app.put('/note', async (req, res) => {
+app.put('/.netlify/functions/app/note', async (req, res) => {
     try{
         const note = { _id , text } = req.body;
         const objId = new ObjectId(note._id)
@@ -95,7 +95,7 @@ app.put('/note', async (req, res) => {
     }
 })
 
-app.delete('/note/:id', async (req, res) => {
+app.delete('/.netlify/functions/app/note/:id', async (req, res) => {
     try{
         const deleteId = req.params.id;
         const objId = new ObjectId(deleteId);
@@ -112,7 +112,7 @@ app.delete('/note/:id', async (req, res) => {
     }
 })
 
-app.post('/user/register', async (req, res) => {
+app.post('/.netlify/functions/app/user/register', async (req, res) => {
     try{
         let credentials = { username , password } = req.body;
         credentials.username = credentials.username.toLowerCase();
@@ -136,7 +136,7 @@ app.post('/user/register', async (req, res) => {
     }
 })
 
-app.post('/user/login', async (req, res) => {
+app.post('/.netlify/functions/app/user/login', async (req, res) => {
     try{
         const credentials = { username , password } = req.body;
         const collection = database.collection('user');
