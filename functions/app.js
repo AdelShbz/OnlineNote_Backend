@@ -11,7 +11,7 @@ dotenv.config({ quiet: true });
 
 const app = express();
 // const secretKey = process.env.SECRET_KEY
-const secretKey = 'sample1234secretKey'
+const secretKey = "a134t52hWRGsdfljqpwoefij"
 const jwtConfig = {
     secret: secretKey,
     algorithms: ['HS256'],
