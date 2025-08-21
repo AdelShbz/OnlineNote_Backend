@@ -5,6 +5,8 @@ const bcrypt = require('bcryptjs');
 const { expressjwt: expressJWT } = require('express-jwt');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
+const serverless = require('serverless-http');
+
 dotenv.config({ quiet: true });
 
 const app = express();
@@ -45,7 +47,7 @@ async function connectToDatabase() {
 
 connectToDatabase();
 
-app.get('/', (req, res) => {
+app.get('/.netlify/functions/app', (req, res) => {
     res.send('it worked...');
 });
 
@@ -159,9 +161,10 @@ app.post('/user/login', async (req, res) => {
     }
 })
 
-const port = process.env.PORT;
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
+// const port = process.env.PORT;
+// app.listen(port, () => {
+//     console.log(`Server is running on port ${port}`);
+// });
 
-
+module.exports = app;
+module.exports.handler = serverless(app);
