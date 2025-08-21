@@ -10,7 +10,8 @@ const serverless = require('serverless-http');
 dotenv.config({ quiet: true });
 
 const app = express();
-const secretKey = process.env.SECRET_KEY
+// const secretKey = process.env.SECRET_KEY
+const secretKey = 'sample1234secretKey'
 const jwtConfig = {
     secret: secretKey,
     algorithms: ['HS256'],
@@ -22,8 +23,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/note' , expressJWT(jwtConfig))
 
 
-// const uri = 'mongodb://localhost:27017/OnlineNote';
-const uri = process.env.URI;
+const uri = 'mongodb://localhost:27017/OnlineNote';
+// const uri = process.env.URI;
 let client;
 let database;
 
