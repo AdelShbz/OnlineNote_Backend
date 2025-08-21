@@ -2,12 +2,10 @@
   "name": "online-note",
   "version": "1.0.0",
   "description": "this is an online note backend.",
-  "main": "functions/app.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node functions/app.js",
-    "build": "echo 'Build complete'",
-    "dev": "netlify dev"
+    "start": "node app.js"
   },
   "author": "adel shbz",
   "license": "ISC",
@@ -18,11 +16,6 @@
     "express": "^5.1.0",
     "express-jwt": "^8.5.1",
     "jsonwebtoken": "^9.0.2",
-    "mongodb": "^6.18.0",
-    "serverless-http": "^3.2.0"
-  },
-  "devDependencies": {
-    "netlify-cli": "^23.2.0",
-    "netlify-lambda": "^2.0.16"
+    "mongodb": "^6.18.0"
   }
 }
