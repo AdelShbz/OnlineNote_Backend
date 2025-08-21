@@ -11,7 +11,7 @@ dotenv.config({ quiet: true });
 
 const app = express();
 // const secretKey = process.env.SECRET_KEY
-const secretKey = "a134t52hWRGsdfljqpwoefij"
+const secretKey = "ABSDFE!@#$%%$#@!1234"
 const jwtConfig = {
     secret: secretKey,
     algorithms: ['HS256'],
@@ -23,7 +23,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/note' , expressJWT(jwtConfig))
 
 
-const uri = 'mongodb://localhost:27017/OnlineNote';
+// const uri = 'mongodb://localhost:27017/OnlineNote';
+const uri = 'mongodb+srv://adelshbz:adel5656@cluster0.6jggp.mongodb.net/OnlineNote?retryWrites=true&w=majority';
 // const uri = process.env.URI;
 let client;
 let database;
