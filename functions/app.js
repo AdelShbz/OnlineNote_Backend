@@ -115,7 +115,7 @@ app.delete('/.netlify/functions/app/note/:id', async (req, res) => {
 app.post('/.netlify/functions/app/user/register', async (req, res) => {
     try{
         let credentials = { username , password } = req.body;
-        credentials.username = credentials.username.toLowerCase();
+        // credentials.username = credentials.username.toLowerCase();
         const collection = database.collection('user');
         const user = await collection.find({'username': credentials.username}).toArray()
         if(user[0]) {
